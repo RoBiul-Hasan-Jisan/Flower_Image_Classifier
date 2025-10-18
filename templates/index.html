@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌸 Flower Classifier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    /*  Animated Gradient Background */
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /*  Glass Card */
+    .glass-card {
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 2rem;
+      max-width: 450px;
+      width: 100%;
+      color: #fff;
+      text-align: center;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    /*  File Input */
+    .form-control {
+      background-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .form-control::file-selector-button {
+      background-color: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .form-control::file-selector-button:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /*  Button */
+    .btn-custom {
+      background: linear-gradient(90deg, #ff7eb3, #ff758c);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 118, 158, 0.6);
+    }
+
+    /*  Image Preview */
+    .image-preview {
+      margin-top: 1rem;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .image-preview img {
+      width: 100%;
+      display: block;
+    }
+
+    .image-preview:hover {
+      transform: scale(1.02);
+    }
+
+    /*  Prediction Text */
+    .prediction {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .prediction strong {
+      font-size: 1.2rem;
+      color: #ffd6e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h3>🌸 Flower Image Classifier</h3>
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" accept="image/*" required class="form-control mb-3">
+      <button type="submit" class="btn btn-custom w-100">🔍 Predict</button>
+    </form>
+
+    {% if image_url %}
+    <div class="image-preview mt-4">
+      <img src="{{ image_url }}" alt="Uploaded Image">
+    </div>
+    <div class="prediction">
+      Prediction: <strong>{{ prediction }}</strong><br>
+      Confidence: {{ confidence }}
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
